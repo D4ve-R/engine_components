@@ -98,14 +98,16 @@ export class IfcToGltfConverter extends Component implements Disposable {
       const material = materialsByLocalId.get(localId) ?? defaultMaterial;
       const ifcGuid = includeIfcGuids ? guids[index] : null;
 
-      for (const meshData of meshes) {
+      for (const [meshIndex, meshData] of meshes.entries()) {
         if (!meshData.positions || meshData.positions.length === 0) continue;
 
         const geometry = this.getGeometry(meshData);
         const mesh = new THREE.Mesh(geometry, material);
         mesh.matrix.copy(meshData.transform);
         mesh.matrixAutoUpdate = false;
-        mesh.name = ifcGuid ?? `${model.modelId}-${localId}`;
+        mesh.name = ifcGuid
+          ? `${ifcGuid}-${meshIndex}`
+          : `${model.modelId}-${localId}-${meshIndex}`;
         mesh.userData = {
           modelId: model.modelId,
           localId,
