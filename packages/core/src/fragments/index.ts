@@ -1,6 +1,7 @@
 export * from "./EdgeProjector";
 export * from "./FragmentsManager";
 export * from "./IfcLoader";
+export * from "./IfcToGltfConverter";
 export * from "./Hider";
 export * from "./BoundingBoxer";
 export * from "./ItemsFinder";
