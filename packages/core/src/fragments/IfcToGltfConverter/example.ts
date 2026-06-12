@@ -79,10 +79,11 @@ const downloadGlb = async () => {
 
   const file = new File([buffer], `${model.modelId}.glb`);
   const link = document.createElement("a");
-  link.href = URL.createObjectURL(file);
+  const url = URL.createObjectURL(file);
+  link.href = url;
   link.download = file.name;
   link.click();
-  URL.revokeObjectURL(link.href);
+  setTimeout(() => URL.revokeObjectURL(url), 0);
 };
 
 /* MD
