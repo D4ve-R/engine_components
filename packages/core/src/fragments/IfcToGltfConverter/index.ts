@@ -91,6 +91,9 @@ export class IfcToGltfConverter extends Component implements Disposable {
     exportRoot.name = model.modelId;
     exportRoot.userData = { modelId: model.modelId };
 
+    model.object.updateWorldMatrix(true, true);
+    exportRoot.matrix.copy(model.object.matrixWorld);
+    exportRoot.matrixAutoUpdate = false
     for (const [index, localId] of localIds.entries()) {
       const meshes = itemsGeometry[index];
       if (!meshes) continue;
